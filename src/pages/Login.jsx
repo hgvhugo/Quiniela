@@ -174,7 +174,7 @@ function Login() {
 
                 <div className="login" >
                     <div >
-                        <h6>Quiniela</h6>
+                        <h6>Quinielon</h6>
                         <div className='subtitulo'>Ingresa tus datos de acceso</div>
                     </div>
                     <div >

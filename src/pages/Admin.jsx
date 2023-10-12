@@ -2,9 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Menu from '../components/Menu';
 import Altajuegos from "../components/Altajuegos";
+import AltaEquipos from "../components/AltaEquipos";
+import { Navbar, Nav, NavLink } from 'react-bootstrap';
+import { useRef, useState, useEffect } from 'react';
 
 const Admin = () => {
     const navigate = useNavigate();
+    const [partidos, setPartidos] = useState(true);
 
     const handlebutton = (e) => {
         if (e === "A") {
@@ -29,12 +33,29 @@ const Admin = () => {
                     <Menu />
                 </div>
                 <div id="content" className="body">
-                    <div style={{ justifyContent: "space-between" }}>
 
-                        <div className="col-9">
-                            <Altajuegos />
+                    <div >
+                        <Navbar>
+                            <Nav className="me-auto">
+                                <NavLink className='amenu' onClick={() => { setPartidos(true); }}><u>Partidos</u></NavLink>
+                                <NavLink className='amenu' onClick={() => { setPartidos(false); }}><u>Equipos</u></NavLink>
+
+                            </Nav>
+
+                        </Navbar>
+                    </div>
+                    <div >
+                        <div >
+                            {partidos ? (
+                                <div >
+                                    <Altajuegos />
+                                </div>
+                            ) : (
+                                <div >
+                                    <AltaEquipos />
+                                </div>
+                            )}
                         </div>
-
                     </div>
                 </div>
             </section>

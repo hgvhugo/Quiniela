@@ -17,37 +17,20 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%*]).{5,24}$/;
 const EMAIL_REGEX = /\S+@\S+\.\S+/;
 const URL = '/api/user/register';
 const Register = () => {
-    const { setAuth } = useAuth();
-    const { auth } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
-    const [Editando, setEdit] = useState(false);
-    const [infoUser, setInfoUser] = useState('');
-    const [username, setUser] = useState('');
-    const [userFocus, setUserFocus] = useState(false);
-    const [password, setPwd] = useState('');
-    const [pwdFocus, setPwdFocus] = useState(false);
-    const [email, setEmail] = useState('');
-    const [emailFocus, setEmailFocus] = useState(false);
-    const [nombre, setNombre] = useState('');
-    const [plazoId, setPlazo] = useState('');
-    const [monto, setMonto] = useState('');
-    const [wallet, setWallet] = useState('');
-    const [plazos, setPlazos] = useState();
-    const [apellido, setApellido] = useState();
-    const [provider, setProvider] = useState('');
-    const [provider_id, setProviderid] = useState('');
+    const [Username, setUser] = useState('');
+    const [Password, setPwd] = useState('');
+    const [Nombre, setNombre] = useState('');
+    const [Apellido, setApellido] = useState('');
     const [validUser, setValidUser] = useState(false);
     const [validPsw, setValidPwd] = useState(false);
-    const [validMail, setValidMail] = useState(false);
-    const [validMonto, setValidMonto] = useState(false);
     const [validated, setValidated] = useState(false);
     const [counter, setCounter] = useState(0);
     const [show, setShow] = useState(false);
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
-    const token = auth?.accessToken;
     const [showPass, setShowPass] = useState(false);
 
     const modalClose = () => {
@@ -63,26 +46,21 @@ const Register = () => {
     }, [])
 
     useEffect(() => {
-        setValidUser(USER_REGEX.test(username));
-    }, [username])
+        setValidUser(USER_REGEX.test(Username));
+    }, [Username])
 
     useEffect(() => {
-        setValidPwd(PWD_REGEX.test(password));
-    }, [password])
-
-    useEffect(() => {
-        setValidMail(EMAIL_REGEX.test(email));
-    }, [email])
+        setValidPwd(PWD_REGEX.test(Password));
+    }, [Password])
 
     useEffect(() => {
         setErrMsg('');
-    }, [username, password])
+    }, [Username, Password])
 
 
     const handleuserChange = (e) => {
         const inputValue = e.target.value;
         setUser(inputValue);
-        setEmail(inputValue + '@nexus.com');
     }
 
 
@@ -101,19 +79,14 @@ const Register = () => {
     const Submit = async (e) => {
         e.preventDefault();
         try {
-            console.log("URL=", URL);
-            console.log("Json=", JSON.stringify({
-                username, password, nombre, email, plazoId, monto, wallet, provider, provider_id
-
-            }));
-            const response = await axios.post(URL,
+            const response = await axios.post('/api/quinielas/usuarios',
                 JSON.stringify({
-                    username, password, nombre, email, plazoId, monto, wallet, provider, provider_id
+                    Username, Password, Nombre, Apellido
 
                 }),
                 {
                     headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
+                    withCredentials: false
                 }
             );
             const message = response?.data?.message;
@@ -121,7 +94,6 @@ const Register = () => {
             setErrMsg(message);
             modalShow();
         } catch (err) {
-            console.log("Errorrrr=", err)
             const ErrMsg = err?.response?.data?.message;
             setErrMsg(ErrMsg);
             modalShow();
@@ -152,16 +124,13 @@ const Register = () => {
                                 <Form.Label>Usuario</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="Escribe tu usuario"
-                                    id="username"
+                                    id="Username"
                                     ref={userRef}
                                     autoComplete="off"
-                                    readOnly={Editando}
                                     onChange={handleuserChange}
-                                    value={username || ''}
+                                    value={Username || ''}
                                     aria-describedby="uidnote"
                                     aria-invalid={validUser ? "false" : "true"}
-                                    onFocus={() => setUserFocus(true)}
-                                    onBlur={() => setUserFocus(false)}
                                     required />
                                 <Form.Control.Feedback type="invalid">
                                     Ingresar usuario.
@@ -171,16 +140,14 @@ const Register = () => {
 
                             <Form.Label>Contraseña</Form.Label>
                             <InputGroup>
-                                <Form.Control type={!showPass ? "password" : "text"}
-                                    id="password"
+                                <Form.Control type={!showPass ? "Password" : "text"}
+                                    id="Password"
                                     placeholder="* * * * * * * *"
                                     autoComplete="off"
                                     onChange={(e) => setPwd(e.target.value)}
-                                    value={password || ''}
+                                    value={Password || ''}
                                     aria-invalid={validPsw ? "false" : "true"}
                                     aria-describedby="pwdnote"
-                                    onFocus={() => setPwdFocus(true)}
-                                    onBlur={() => setPwdFocus(false)}
                                     required /><div className="input-group-append">
                                     <Button className="buttonpass"
                                         onClick={() => setShowPass(!showPass)}>
@@ -200,7 +167,7 @@ const Register = () => {
                                             id="nombre"
                                             placeholder="Nombres"
                                             onChange={(e) => setNombre(e.target.value)}
-                                            value={nombre || ''}
+                                            value={Nombre || ''}
                                             required />
                                         <Form.Control.Feedback type="invalid">
                                             ingresar nombre completo.
@@ -216,7 +183,7 @@ const Register = () => {
                                             id="apellido"
                                             placeholder="Apellidos"
                                             onChange={(e) => setApellido(e.target.value)}
-                                            value={apellido || ''}
+                                            value={Apellido || ''}
                                             required />
                                         <Form.Control.Feedback type="invalid">
                                             ingresar nombre completo.

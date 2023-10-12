@@ -162,6 +162,18 @@ a:hover {
   color: #D50A0A;
 }
 
+.divinline {
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 10px;
+  padding: 15px;
+}
+
+
+.ahdr {
+  text-decoration: none !important;
+  color: #fff !important;
+}
 
 .textareaf {
   font-family: 'Nunito', sans-serif;
@@ -173,4 +185,35 @@ a:hover {
   color: #000000 !important;
   border-color: #1a1a1a;
 
+}
+
+
+.tables {
+  width: 80% !important;
+}
+
+.tables,
+td {
+  border-bottom-width: 0 !important;
+  padding: 0.5rem 0.5rem !important;
+  background-color: white !important;
+  font-size: 18px !important;
+  border-bottom: 2px;
+
+}
+
+.tables,
+th {
+  border-bottom-width: 0 !important;
+  padding: 0.5rem 0.5rem;
+  background-color: #013369 !important;
+  color: #fff !important;
+  font-size: 18px !important;
+  border-bottom: 1px solid;
+
+}
+
+.tables,
+tr {
+  border-bottom: 5px solid white !important;
 }

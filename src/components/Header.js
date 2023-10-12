@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import logo from '../img/logonfl.png'
-import icon from '../img/logo.svg'
+import icon from '../img/icon.jpg'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -49,20 +49,20 @@ function Header() {
     const logout = async () => {
         setCounter(0);
         setAuth({});
-        try {
-            const response = await axios.post(URL, JSON.stringify({ username }),
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                    withCredentials: true
-                }
-            );
-
-        } catch (err) {
-            console.error(err.response);
-        }
+        /* try {
+             const response = await axios.post(URL, JSON.stringify({ username }),
+                 {
+                     headers: {
+                         'Content-Type': 'application/json',
+                         'Authorization': 'Bearer ' + token
+                     },
+                     withCredentials: true
+                 }
+             );
+ 
+         } catch (err) {
+             console.error(err.response);
+         }*/
     }
 
     return (
@@ -93,14 +93,11 @@ function Header() {
                                     </div>
 
                                     <div className='col-9' style={{ paddingLeft: "40px" }}>
-                                        <Link className='juju' to="/profile" state={{ title: "PERFIL DE USUARIOS" }}>{username}</Link>
+                                        <Link className='ahdr' to="/profile" state={{ title: "PERFIL DE USUARIOS" }}>{username}</Link>
                                         <div id='divses' className="firstdiv" style={{ display: hide ? "block" : "none" }}>
-                                            <Link to={tbl} onClick={logout}>Cerrar sesión</Link>
+                                            <Link className='ahdr' to={tbl} onClick={logout}>Cerrar sesión</Link>
                                         </div>
                                     </div>
-
-
-
                                 </div>
                             </Nav>
                         </Navbar.Collapse>

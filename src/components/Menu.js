@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useAuth from '../hooks/useAuth';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,69 +17,65 @@ function Menu() {
     useEffect(() => {
 
         const rol = auth?.roles;
-        if(rol){
-            if( rol[0] === "User")
-            {
-                setTbl('/userdashboard');
-                setHome('/');
-                setBook('/transactions');
-                setTitleT('PANEL DE INICIO');
-                setTitleH('RENDIMIENTOS');
+        if (rol) {
+            if (rol[0] === "User") {
+                setTbl('/quiniela');
+                setHome('/resultados');
+                setBook('/historial');
+                setTitleT('QUINIELA');
+                setTitleH('RESULTADOS');
+                setTitleB('HISTORIAL');
+            }
+            else if (rol[0] === "Admin") {
+                setTbl('/Admin');
+                setHome('/resgistrados');
+                setBook('/historial');
+                setTitleT('PANEL DE ADMINISTRACIÓN');
+                setTitleH('QUINIELAS REGISTRADAS');
                 setTitleB('HISTORIAL DE MOVIMIENTOS');
             }
-            else if(rol[0] === "admin")
-            {
-            setTbl('/dashboard');
-            setHome('/users');
-            setBook('/transactions');
-            setTitleT('PANEL DE ADMINISTRACIÓN');
-            setTitleH('USUARIOS REGISTRADOS');
-            setTitleB('HISTORIAL DE MOVIMIENTOS');
-        }
-        else if(rol[0] === "super_admin")
-            {
-            setTbl('/dashboard');
-            setHome('/admin');
-            setBook('');
-            setTitleT('PANEL DE ADMINISTRACIÓN');
-            setTitleH('PANEL SUPER ADMINISTRADOR');
-            setTitleB('PANEL SUPER ADMINISTRADOR');
-        }
-            else
-            {
+            else if (rol[0] === "super_admin") {
+                setTbl('/dashboard');
+                setHome('/admin');
+                setBook('');
+                setTitleT('PANEL DE ADMINISTRACIÓN');
+                setTitleH('PANEL SUPER ADMINISTRADOR');
+                setTitleB('PANEL SUPER ADMINISTRADOR');
+            }
+            else {
                 setTbl('');
                 setHome('');
                 setBook('');
             }
         }
-    }, [tbl,home,book, auth])
+    }, [tbl, home, book, auth])
 
-  return (
-    <>
-        <div className="container" >
-            <div className="row">
-                <div className="col">            
-                <div className="row align-items-center" style={{height:"150px"}}>
-                    <div className="col"><Link to={tbl} state={{title:titleT}} >
-                    <i className="bi bi-grid-fill" style={{fontSize:"2rem", color: "#646262"}}></i></Link>
+    return (
+        <>
+            <div className="container" >
+                <div className="row">
+                    <div className="col">
+                        <div className="row align-items-center" style={{ height: "150px" }}>
+                            <div className="col"><Link to={tbl} state={{ title: titleT }} >
+                                <i className="bi bi-grid-fill" style={{ fontSize: "2rem", color: "#646262" }}></i></Link>
+                            </div>
+                        </div>
+                        <div className="row align-items-center" style={{ height: "150px" }}>
+                            <div className="col-5"><Link to={home} state={{ title: titleH }} >
+                                <i className="bi bi-house-door" style={{ fontSize: "2rem", color: "#646262" }}></i></Link>
+                            </div>
+                        </div>
+
+                        <div className="row align-items-center" style={{ height: "150px" }}>
+                            <div className="col"><Link to={book} state={{ title: titleB }} >
+                                <i className="bi bi-book" style={{ fontSize: "2rem", color: "#646262" }}></i></Link>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="row align-items-center" style={{height:"150px"}}>
-                    <div className="col-5"><Link to={home} state={{title:titleH}} >
-                    <i className="bi bi-house-door" style={{fontSize:"2rem", color: "#646262"}}></i></Link>
-                    </div>
-                </div>
-              
-                <div className="row align-items-center" style={{height:"150px"}}>
-                    <div className="col"><Link to={book} state={{title:titleB}} >
-                    <i className="bi bi-book" style={{fontSize:"2rem", color: "#646262"}}></i></Link>
-                    </div>
-                </div>   
-                </div>   
             </div>
-        </div>
-    </>
-  )
+        </>
+    )
 }
 
 export default Menu

@@ -120,12 +120,12 @@ function Login() {
 
     const Submit = async (e) => {
 
-        /*
+
         if (e) {
             e.preventDefault();
         }
         try {
-            const response = await axios.post(LOGIN_URL,
+            const response = await axios.post('/api/quinielas/login',
                 JSON.stringify({ username, password }),
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -133,15 +133,21 @@ function Login() {
                 }
             );
 
+            console.log("response=", response);
 
             const accessToken = response?.data?.token;
             const refreshToken = response?.data?.refreshToken;
-            const roles = ['User'];
+            const rol = response?.data?.rol;
+            const roles = [rol];
             const login = 'User';
             setAuth({ username, password, roles, accessToken, refreshToken, login });
             setUser('');
             setPwd('');
-            navigate('/userdashboard', { state: { title: 'PANEL DE INICIO' } });
+            if (rol === 'User') {
+                navigate('/quiniela', { state: { title: 'QUINIELA' } });
+            } else {
+                navigate('/admin', { state: { title: 'PANEL DE ADMINISTRACIÓN' } });
+            }
         } catch (err) {
             const ErrMsg = err?.response?.data?.message;
             if (!err?.response) {
@@ -156,15 +162,7 @@ function Login() {
                 setErrMsg('Error de inicio de sesión');
             }
             modalShow();
-        }*/
-        const accessToken = "tokenashdjhaskjdhkasjhdkjashdkjash";
-        const refreshToken = "tokenashdjhaskjdhkasjhdkjashdkjash";
-        const roles = ['admin'];
-        const login = 'User';
-        setAuth({ username, password, roles, accessToken, refreshToken, login });
-        setUser('');
-        setPwd('');
-        navigate('/admin', { state: { title: 'Quiniela NFL' } });
+        }
 
     }
 
@@ -174,7 +172,7 @@ function Login() {
 
                 <div className="login" >
                     <div >
-                        <h6>Quinielon</h6>
+                        <h6>Quiniela</h6>
                         <div className='subtitulo'>Ingresa tus datos de acceso</div>
                     </div>
                     <div >

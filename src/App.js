@@ -15,7 +15,7 @@ import Quiniela from './pages/Quiniela';
 
 const ROLES = {
   'User': 'User',
-  'Admin': 'admin'
+  'Admin': 'Admin'
 }
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}>
           <Route path="admin" element={<Admin />} />
         </Route>
 
